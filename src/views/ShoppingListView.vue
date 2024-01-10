@@ -1,29 +1,123 @@
 <template>
+  <h1>Shopping List erstellen</h1>
   {{shoppingLists}}
   <div>
     <label>Shopping Name</label>: <input type="text" id="txt1" v-model="shoppingLists.name"> />
   </div>
-  <div>
 
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Done</th>
+        <th>Deadline</th>
+        <th>Items</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="shoppingList in shoppingLists" :key="shoppingList.idShoppingList">
+        <td>{{ shoppingList.idShoppingList }}</td>
+        <td>{{ shoppingList.shoppingName ? shoppingList.shoppingName : 'Unnamed Shopping List' }}</td>
+        <td>{{ shoppingList.done ? 'Yes' : 'No' }}</td>
+        <td>{{ shoppingList.deadline }}</td>
+        <td>
+          <ul>
+            <li v-for="item in shoppingList.items" :key="item.itemID">
+              {{ item.itemName }} - {{ item.quantity }} - {{ getCategoryName(item.categoryID) }} - {{ item.done ? 'Done' : 'Not Done'}}
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div v-for="list in shoppingLists" :key="list.id">
+    <h2>{{list.name }}</h2>
+
+    <u>
+      <li v-for="item in list.items" :key="item.id">
+        {{ item.name }} - {{ item.quantity }}
+      </li>
+    </u>
+  </div>
+
+  <div>
+    <label>Shopping Name:</label>
+    <input type="text" v-model="newListName" />
+    <button @click="addShoppingList">Neue Liste erstellen</button>
+  </div>
+
+  <div v-if="selectedList">
+    <h3>Neues Element zur Liste hinzufügen</h3>
+    <label>Artikelname:</label>
+    <input type="text" v-model="newItemName" />
+    <label>Menge:</label>
+    <input type="number" v-model="newItemQuantity" />
+    <button @click="addItemToList">Element hinzufügen</button>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 import axios from "axios";
+
+const shoppingLists= ref([]);
+
+const fetchShoppingLists = () => {
+  axios
+      .get('http://localhost:8080/shoppingLists')
+      .then((response) => {
+        shoppingLists.value = response.data;
+      });
+};
+
+const getCategoryName = (categoryId) => {
+  return "unknown";
+};
+
+onMounted(() => {
+  fetchShoppingLists();
+})
+/*
 export default {
   data() {
     return {
-      shoppingLists: {}
+      shoppingLists: [],
+      shoppingName: "",
+      done: false,
+      deadline: undefined,
+      items: []
     };
   },
   mounted() {
-    axios
-      .get('http://localhost:8080/shoppingLists')
-      .then((response) => {
-        this.shoppingLists = response.data;
-      });
+    this.fetchShopppingLists();
+  },
+  methodes: {
+    fetchShoppingLists() {
+
+  },
+    addShoppingList() {
+    const newList = {
+      name: this.newListName,
+      items: []
+    };
+    this.shoppingLists.push(newList);
+    this.newListName = "";
+    },
+    addItemToList() {
+      const newItem = {
+        name: this.newItemName,
+        quantity: this.newItemQuantity
+      };
+      this.selectedList.items.push(newItem);
+
+      this.newItemName = "";
+      this.newItemQuantity = 1;
+    }
   }
 };
+ */
 </script>
 
 
@@ -66,4 +160,20 @@ export default {
   background-repeat: no-repeat;
   height: 100vh;
 }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
 </style>
