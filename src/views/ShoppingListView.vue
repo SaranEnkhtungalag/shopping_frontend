@@ -1,10 +1,24 @@
 <template>
   <h1>Shopping List erstellen</h1>
   <div>
-    <label>Was kaufen Sie noch?:</label>
-    <input type="text" v-model="newListName" />
-    <button @click="addShoppingList">Neue Liste erstellen</button>
+    <h3>List:</h3>
+<!--    Item erstellen    -->
   </div>
+    <div class="item-form">
+      <h2>Was kaufen Sie noch?</h2>
+      <label>Item Name:</label>
+      <input type="text" v-model="newItemName">
+      <label>Quantity:</label>
+      <input type="number" v-model="newItemQuantity" />
+      <label>Kategorie:</label>
+      <select v-model="selectedCategory">
+        <option v-for="category in categories" :key="category.categoryID" :value="category.categoryID">
+          {{ category.categoryName }}
+        </option>
+      </select>
+      <button @click="createItem">Item erstellen</button>
+    </div>
+  <!--  vorhandener Einkaufslisten  -->
   <table>
     <thead>
       <tr>
@@ -52,10 +66,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import ItemView from '@/views/ItemView';
+import ItemView from "../components/ItemView.vue";
 
 const shoppingLists= ref([]);
 const newListName = ref('');
+const newItemName = ref('');
+const newItemQuantity = ref(1);
+const selectedCategory = ref(null);
+const categories = ref([]);
 
 const fetchShoppingLists = () => {
   axios
@@ -63,6 +81,13 @@ const fetchShoppingLists = () => {
       .then((response) => {
         shoppingLists.value = response.data;
       });
+};
+
+const fetchCategories = () => {
+  axios.get('http://localhost:8080/categories')
+    .then((response) => {
+      categories.value = response.data;
+  });
 };
 
 const addShoppingList = () => {
@@ -80,75 +105,7 @@ const getCategoryName = (categoryId) => {
 onMounted(() => {
   fetchShoppingLists();
 })
-/*
-export default {
-  data() {
-    return {
-      shoppingLists: [],
-      shoppingName: "",
-      done: false,
-      deadline: undefined,
-      items: []
-    };
-  },
-  mounted() {
-    this.fetchShopppingLists();
-  },
-  methodes: {
-    fetchShoppingLists() {
-
-  },
-    addShoppingList() {
-    const newList = {
-      name: this.newListName,
-      items: []
-    };
-    this.shoppingLists.push(newList);
-    this.newListName = "";
-    },
-    addItemToList() {
-      const newItem = {
-        name: this.newItemName,
-        quantity: this.newItemQuantity
-      };
-      this.selectedList.items.push(newItem);
-
-      this.newItemName = "";
-      this.newItemQuantity = 1;
-    }
-  }
-};
- */
 </script>
-
-
-
-<!--<template>-->
-<!--  <h1>Welcome to ShoppingList</h1>-->
-<!--  <div class="container-fluid">-->
-<!--    <div class="col" v-for="shoppingList in shoppingLists" :key="shoppingList.id"></div>-->
-<!--  </div>-->
-<!--</template>-->
-
-<!--<script setup>-->
-<!--export default {-->
-<!--  name: 'ShoppingListView',-->
-<!--  data() {-->
-<!--    return {-->
-<!--      shoppingLists:[]-->
-<!--    }-->
-<!--  },-->
-<!--  mounted() {-->
-<!--    const endpoint = import.meta.env.VITE_BACKEND_BASE_URL + '/shoppingLists'-->
-<!--    const requistOptions = {-->
-<!--      method: 'GET',-->
-<!--      redirect: 'follow'-->
-<!--    }-->
-<!--    fetch(endpoint, requistOptions).then(response => response.json()).then(result => console.log(result)).catch(error => console.log('error', error))-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
-
 
 <style lang="css" scoped>
 *{
