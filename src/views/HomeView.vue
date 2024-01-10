@@ -13,11 +13,11 @@ export default {
 <template>
   <HelloWorld msg="Herzlich willkommen auf der Webseite unsere Shopping List!"/>
   <div class="background-container">
-      <div class="center-button">
-        <router-link to="/shoppingLists">
-          <b-button variant="success" size="lg">My Shopping List</b-button>
-        </router-link>
-      </div>
+    <div class="center-button">
+      <router-link to="/shoppingLists">
+        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">My Shopping List</a>
+      </router-link>
+    </div>
   </div>
  <!-- <div class="w-100 d-flex justify-content-center align-items-center" style=" height: 100vh; width: 100vw; background-size: contain; display: flex; background-image: url('public/shop.jpg')">-->
 <!--  <div id='Home' class="w-100 d-flex justify-content-center align-items-center" style="height: 100vh; background-image: url('../assets/shop.jpg')">-->
@@ -38,8 +38,8 @@ export default {
 }
 .center-button {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 30%;
+  left: 30%;
   transform: translate(-50%, -50%);
   margin-top: 100px;
 }

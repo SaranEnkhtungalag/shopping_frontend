@@ -1,9 +1,7 @@
 <template>
   <h1>Shopping List erstellen</h1>
-  <div>
-    <h3>List:</h3>
+  <div></div>
 <!--    Item erstellen    -->
-  </div>
     <div class="item-form">
       <h2>Was kaufen Sie noch?</h2>
       <label>Item Name:</label>
@@ -17,6 +15,7 @@
         </option>
       </select>
       <button @click="createItem">Item erstellen</button>
+      <div class="background-image"></div>
     </div>
   <!--  vorhandener Einkaufslisten  -->
   <table>
@@ -27,6 +26,7 @@
         <th>Done</th>
         <th>Deadline</th>
         <th>Items</th>
+        <th>Category</th>
       </tr>
     </thead>
     <tbody>
@@ -111,21 +111,23 @@ onMounted(() => {
 *{
   margin: 0;
   padding: 0;
+  background-color: #cdeccd;
 }
 .background-image{
-  background-image: url("public/shop.jpg");
+  background-image: url("/public/shop3.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
 }
 table {
   width: 100%;
+  border: 1px solid black;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 1px solid black;
   padding: 8px;
   text-align: left;
 }
