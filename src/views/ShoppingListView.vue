@@ -1,10 +1,10 @@
 <template>
   <h1>Shopping List erstellen</h1>
-  {{shoppingLists}}
   <div>
-    <label>Shopping Name</label>: <input type="text" id="txt1" v-model="shoppingLists.name"> />
+    <label>Was kaufen Sie noch?:</label>
+    <input type="text" v-model="newListName" />
+    <button @click="addShoppingList">Neue Liste erstellen</button>
   </div>
-
   <table>
     <thead>
       <tr>
@@ -31,23 +31,14 @@
       </tr>
     </tbody>
   </table>
-
   <div v-for="list in shoppingLists" :key="list.id">
     <h2>{{list.name }}</h2>
-
     <u>
       <li v-for="item in list.items" :key="item.id">
         {{ item.name }} - {{ item.quantity }}
       </li>
     </u>
   </div>
-
-  <div>
-    <label>Shopping Name:</label>
-    <input type="text" v-model="newListName" />
-    <button @click="addShoppingList">Neue Liste erstellen</button>
-  </div>
-
   <div v-if="selectedList">
     <h3>Neues Element zur Liste hinzufügen</h3>
     <label>Artikelname:</label>
@@ -61,8 +52,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import ItemView from '@/views/ItemView';
 
 const shoppingLists= ref([]);
+const newListName = ref('');
 
 const fetchShoppingLists = () => {
   axios
@@ -71,6 +64,14 @@ const fetchShoppingLists = () => {
         shoppingLists.value = response.data;
       });
 };
+
+const addShoppingList = () => {
+  if (newListName.value.trim() !== '') {
+    const newShoppingList = {
+      shoppingName: newListName.value,
+    }
+  }
+}
 
 const getCategoryName = (categoryId) => {
   return "unknown";
