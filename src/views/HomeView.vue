@@ -1,3 +1,18 @@
+<template>
+  <HelloWorld msg="Welcome to Shopping List!"/>
+  <div class="background-container">
+    <div class="center-button">
+      <router-link to="/shoppingLists">
+        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">My Shopping List</a>
+      </router-link>
+    </div>
+  </div>
+  <!-- <div class="w-100 d-flex justify-content-center align-items-center" style=" height: 100vh; width: 100vw; background-size: contain; display: flex; background-image: url('public/shop.jpg')">-->
+  <!--  <div id='Home' class="w-100 d-flex justify-content-center align-items-center" style="height: 100vh; background-image: url('../assets/shop.jpg')">-->
+  <!--    <HelloWorld msg="Herzlich willkommen auf der Webseite unsere Shopping List!"/>-->
+  <!--  </div>-->
+</template>
+
 <script lang="ts">
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
@@ -9,23 +24,12 @@ export default {
   }
 }
 </script>
-
-<template>
-  <HelloWorld msg="Herzlich willkommen auf der Webseite unsere Shopping List!"/>
-  <div class="background-container">
-    <div class="center-button">
-      <router-link to="/shoppingLists">
-        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">My Shopping List</a>
-      </router-link>
-    </div>
-  </div>
- <!-- <div class="w-100 d-flex justify-content-center align-items-center" style=" height: 100vh; width: 100vw; background-size: contain; display: flex; background-image: url('public/shop.jpg')">-->
-<!--  <div id='Home' class="w-100 d-flex justify-content-center align-items-center" style="height: 100vh; background-image: url('../assets/shop.jpg')">-->
-<!--    <HelloWorld msg="Herzlich willkommen auf der Webseite unsere Shopping List!"/>-->
-<!--  </div>-->
-</template>
-
 <style scoped>
+*{
+  margin: 0;
+  padding: 0;
+  background-color: #cdeccd;
+}
 .background-container {
   background-image: url('/public/shop2.png');
   background-size: auto 100%;

@@ -4,10 +4,14 @@
 <!--    Item erstellen    -->
     <div class="item-form">
       <h2>Was kaufen Sie noch?</h2>
-      <label>Item Name:</label>
-      <input type="text" v-model="newItemName">
-      <label>Quantity:</label>
-      <input type="number" v-model="newItemQuantity" />
+      <div>
+        <label>Item Name:</label>
+        <input type="text" v-model="newItemName">
+      </div>
+      <div>
+        <label>Quantity:</label>
+        <input type="number" v-model="newItemQuantity" />
+      </div>
       <label>Kategorie:</label>
       <select v-model="selectedCategory">
         <option v-for="category in categories" :key="category.categoryID" :value="category.categoryID">
@@ -104,6 +108,7 @@ const getCategoryName = (categoryId) => {
 
 onMounted(() => {
   fetchShoppingLists();
+  fetchCategories();
 })
 </script>
 
@@ -117,7 +122,7 @@ onMounted(() => {
   background-image: url("/public/shop3.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 75vh;
 }
 table {
   width: 100%;
