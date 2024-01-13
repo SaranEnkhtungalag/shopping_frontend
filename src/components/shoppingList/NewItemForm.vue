@@ -21,9 +21,24 @@
 </template>
 
 <script setup lang="ts">
+import axios from "axios";
 import { ref } from "vue";
 
 const newItemName = ref('');
 const newItemQuantity = ref(1);
 const newItemCategory = ref<number|null>(null);
+
+const createItem = () => {
+    console.log('create item')
+}
 </script>
+
+<style scoped>
+.background-image {
+  background-image: url("/public/shop3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 75vh;
+}
+</style>

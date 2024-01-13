@@ -11,16 +11,7 @@ import axios from "axios";
 import NewItemForm from '../components/shoppingList/NewItemForm.vue'
 import CategoryDetail from '../components/shoppingList/CategoryDetail.vue'
 
-const shoppingLists = ref<any[]>([]);
 const categories = ref<any[]>([]);
-
-const fetchShoppingLists = () => {
-  axios
-    .get('http://localhost:8080/shoppingLists')
-    .then((response) => {
-      shoppingLists.value = response.data;
-    });
-};
 
 const fetchCategories = () => {
   axios.get('http://localhost:8080/categories')
@@ -34,7 +25,6 @@ const createItem = () => {
 }
 
 onMounted(() => {
-  fetchShoppingLists();
   fetchCategories();
 })
 // const getCategoryName = (categoryId) => {
