@@ -25,11 +25,6 @@ export default {
 }
 </script>
 <style scoped>
-*{
-  margin: 0;
-  padding: 0;
-  background-color: #cdeccd;
-}
 .background-container {
   background-image: url('/public/shop2.png');
   background-size: auto 100%;
