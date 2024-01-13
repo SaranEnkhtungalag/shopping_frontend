@@ -11,10 +11,11 @@
             <td>{{ item.itemName }}</td>
             <td>{{ item.quantity }}</td>
             <td>
-              <input type="checkbox" v-model="item.done">
+              <ItemDoneCheckbox :itemID="item.itemID" />
             </td>
             <td>
-              <button type="button" class="btn btn-danger btn-sm" @click="() => props.deleteItem(item.itemID)">delete</button>
+              <button type="button" class="btn btn-danger btn-sm"
+                @click="() => props.deleteItem(item.itemID)">delete</button>
             </td>
           </tr>
         </template>
@@ -24,9 +25,10 @@
 </template>
 
 <script setup>
-import axios from "axios";
-import { computed, ref, onMounted } from "vue";
+import axios from "axios"
+import { computed, ref, onMounted } from "vue"
 import { categorizeItemList } from "../../utils/categorizeItemList"
+import ItemDoneCheckbox from './ItemDoneCheckbox.vue'
 
 const props = defineProps(['shoppingList', 'deleteItem'])
 
@@ -37,6 +39,7 @@ const categorizedItemList = computed(() => categorizeItemList(props.shoppingList
 .shopping-list-table {
   margin-left: 2rem;
 }
+
 .category-name {
   font-size: 1.5rem;
   font-weight: bold;
