@@ -1,10 +1,7 @@
 <template>
-  <HelloWorld msg="Welcome to Shopping List!"/>
-  <div class="background-container">
-    <div class="center-button">
-      <router-link to="/shoppingLists">
-        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">My Shopping List</a>
-      </router-link>
+  <div class="home-container">
+    <HelloWorld msg="Welcome to Shopping List!" />
+    <div class="background-container">
     </div>
   </div>
   <!-- <div class="w-100 d-flex justify-content-center align-items-center" style=" height: 100vh; width: 100vw; background-size: contain; display: flex; background-image: url('public/shop.jpg')">-->
@@ -25,6 +22,12 @@ export default {
 }
 </script>
 <style scoped>
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 2rem;
+}
+
 .background-container {
   background-image: url('/public/shop2.png');
   background-size: auto 100%;
@@ -35,6 +38,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .center-button {
   position: absolute;
   top: 30%;

@@ -8,8 +8,16 @@ defineProps<{
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
     <h3>
-      Do you need a shopping list? Well, it's time to create one! Making a shopping list is a simple way to stay organized and ensure you don't forget anything important. Consider categorizing items and use apps for added convenience. Take advantage of sales, double-check your list, and enjoy a more efficient and budget-friendly shopping experience!
+      Do you need a shopping list? Well, it's time to create one! Making a shopping list is a simple way to stay organized
+      and ensure you don't forget anything important. Consider categorizing items and use apps for added convenience. Take
+      advantage of sales, double-check your list, and enjoy a more efficient and budget-friendly shopping experience!
     </h3>
+
+    <div class="to-shopping-list">
+      <router-link to="/shoppingLists">
+        My Shopping List
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -28,6 +36,13 @@ h3 {
 .greetings h1,
 .greetings h3 {
   text-align: center;
+}
+
+.to-shopping-list {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 @media (min-width: 1024px) {

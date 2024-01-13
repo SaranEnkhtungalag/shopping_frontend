@@ -1,17 +1,35 @@
 <template>
-  <h1>Shopping List erstellen</h1>
   <!--    Item erstellen    -->
-  <NewItemForm />
-  <CategoryDetail />
+  <div>
+    <div>
+      <span class="category-name">{{ activeShoppingList?.shoppingName }}</span>
+      <a class="update-category-name" href="#" @click="updateShoppingLstName">update name</a>
+    </div>
+    <div class="category-deadline">Deadline: {{ activeShoppingList?.deadline }}</div>
+
+    <div class="shopping-list-content">
+      <div>
+        <NewItemForm :categories="categories" />
+      </div>
+      <div>
+        <ShoppingListItems :shoppingList="activeShoppingList" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { computed, ref, onMounted } from "vue";
 import axios from "axios";
 import NewItemForm from '../components/shoppingList/NewItemForm.vue'
-import CategoryDetail from '../components/shoppingList/CategoryDetail.vue'
+import ShoppingListItems from '../components/shoppingList/ShoppingListItems.vue'
 
 const categories = ref<any[]>([]);
+const shoppingLists = ref([]);
+
+const activeShoppingList = computed<any>(() => {
+  return shoppingLists.value[0] || {}
+})
 
 const fetchCategories = () => {
   axios.get('http://localhost:8080/categories')
@@ -20,13 +38,22 @@ const fetchCategories = () => {
     });
 };
 
-const createItem = () => {
-  console.log('create item duuddagdlaa')
-}
+const fetchShoppingLists = () => {
+  axios
+    .get('http://localhost:8080/shoppingLists')
+    .then((response) => {
+      shoppingLists.value = response.data;
+    });
+};
 
 onMounted(() => {
   fetchCategories();
+  fetchShoppingLists();
 })
+
+const updateShoppingLstName = () => {
+  console.log('update shopping list name')
+}
 // const getCategoryName = (categoryId) => {
 
 //   const category = categories.value.find((c) => c.categoryID === categoryId);
@@ -41,4 +68,18 @@ onMounted(() => {
 </script>
 
 <style lang="css" scoped>
+.category-name {
+  font-size: 2rem;
+}
+.update-category-name {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+.shopping-list-content {
+  display: flex;
+}
+
+.shopping-list-content>div {
+  flex: 1;
+}
 </style>

@@ -11,7 +11,7 @@
     </div>
     <label>Kategorie:</label>
     <select v-model="newItemCategory">
-      <option v-for="category in categories" :key="category.categoryID" :value="category.categoryID">
+      <option v-for="category in props.categories" :key="category.categoryID" :value="category.categoryID">
         {{ category.categoryName }}
       </option>
     </select>
@@ -24,6 +24,7 @@
 import axios from "axios";
 import { ref } from "vue";
 
+const props = defineProps(['categories'])
 const newItemName = ref('');
 const newItemQuantity = ref(1);
 const newItemCategory = ref<number|null>(null);
