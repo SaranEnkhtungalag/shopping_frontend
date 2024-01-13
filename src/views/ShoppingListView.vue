@@ -3,13 +3,13 @@
   <div>
     <div>
       <span class="category-name">{{ activeShoppingList?.shoppingName }}</span>
-      <a class="update-category-name" href="#" @click="updateShoppingLstName">update name</a>
+      <a class="update-shopping-list-name" href="#" @click="updateShoppingLstName">update name</a>
     </div>
     <div class="category-deadline">Deadline: {{ activeShoppingList?.deadline }}</div>
 
     <div class="shopping-list-content">
       <div>
-        <NewItemForm :categories="categories" />
+        <NewItemForm :categories="categories" :createItem="createItem" />
       </div>
       <div>
         <ShoppingListItems :shoppingList="activeShoppingList" />
@@ -51,6 +51,16 @@ onMounted(() => {
   fetchShoppingLists();
 })
 
+const createItem = (body: any) => {
+  axios
+    .post('http://localhost:8080/items', body)
+    .then((response) => {
+      if (response.status === 200) {
+        fetchShoppingLists();
+      }
+    });
+}
+
 const updateShoppingLstName = () => {
   console.log('update shopping list name')
 }
@@ -71,10 +81,12 @@ const updateShoppingLstName = () => {
 .category-name {
   font-size: 2rem;
 }
-.update-category-name {
+
+.update-shopping-list-name {
   font-size: 0.8rem;
   margin-left: 0.5rem;
 }
+
 .shopping-list-content {
   display: flex;
 }
