@@ -6,13 +6,16 @@
   </div>
   <div class="item-list">
     <!-- category davtalt -->
-    <div v-for="categoryKey in Object.keys(categorizedItemList)" :key="categoryKey" class="category-name">{{ categorizedItemList[categoryKey] }}</div>
-    <!-- item davtalt -->
-    <div class="item">
-      <!-- <span class="item-name">{{ item.name }}</span>
-      <span class="item-quantity">{{ item.quantity }}</span>
-      <span class="item-status">{{ item.status }}</span>
-      <button class="item-delete" @click="deleteItem">delete</button> -->
+    <div v-for="category in categorizedItemList" :key="category.categoryID" class="category-name">
+      {{ category.categoryName }}
+      
+      <!-- item davtalt -->
+      <div v-for="item in category.items" :key="item.itemID" class="item">
+        <span class="item-name">{{ item.name }}</span>
+        <span class="item-quantity">{{ item.quantity }}</span>
+        <span class="item-done">{{ item.done }}</span>
+        <button class="item-delete" @click="deleteItem">delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -27,10 +30,7 @@ const activeShoppingList = computed(() => {
   return shoppingLists.value[0]
 })
 
-const categorizedItemList = computed(() => {
-  const list = categorizeItemList(shoppingLists.value[0]?.items || [])
-  return list
-})
+const categorizedItemList = computed(() => categorizeItemList(shoppingLists.value[0]?.items || []))
 
 const updateShoppingListName = () => {
   console.log('update shopping list name')
