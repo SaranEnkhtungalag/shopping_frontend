@@ -1,18 +1,24 @@
 <template>
-  <div class="item-list">
-    <table class="shopping-list-table">
-      <template v-for="category in categorizedItemList" :key="category.categoryID">
-        <tr class="category-name">
-          <td colspan="4"><h2>{{ category.categoryName }}</h2></td>
-        </tr>
+  <div class="item-list mt-5">
+    <table class="shopping-list-table table table-success">
+      <tbody>
+        <template v-for="category in categorizedItemList" :key="category.categoryID">
+          <tr class="category-name">
+            <td colspan="4">{{ category.categoryName }}</td>
+          </tr>
 
-        <tr v-for="item in category.items" :key="item.itemID" class="item">
-          <td><span class="item-name">{{ item.itemName }}</span></td>
-          <td><span class="item-quantity">{{ item.quantity }}</span></td>
-          <td><span class="item-done">{{ item.done }}</span></td>
-          <td><button class="item-delete" @click="deleteItem">delete</button></td>
-        </tr>
-      </template>
+          <tr v-for="item in category.items" :key="item.itemID" class="item">
+            <td>{{ item.itemName }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>
+              <input type="checkbox" v-model="item.done">
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" @click="deleteItem">delete</button>
+            </td>
+          </tr>
+        </template>
+      </tbody>
     </table>
   </div>
 </template>
@@ -38,3 +44,13 @@ const deleteItem = () => {
 onMounted(() => {
 })
 </script>
+
+<style scoped>
+.shopping-list-table {
+  margin-left: 2rem;
+}
+.category-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+</style>
