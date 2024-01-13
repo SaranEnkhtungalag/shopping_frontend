@@ -3,31 +3,32 @@
   <div>
     <div>
       <span class="category-name">{{ activeShoppingList?.shoppingName }}</span>
-      <a class="update-shopping-list-name" href="#" @click="updateShoppingLstName">update name</a>
+      <UpdateShoppingListNameModal :update="updateShoppingListName" />
     </div>
     <div class="category-deadline">Deadline: {{ activeShoppingList?.deadline }}</div>
 
     <div class="shopping-list-content">
       <div>
-        <NewItemForm :categories="categories" :createItem="createItem" />
+        <NewItemForm :categories="categories" :createItem="createItem" :addCategory="addCategory" />
       </div>
       <div>
-        <ShoppingListItems :shoppingList="activeShoppingList" />
+        <ShoppingListItems :shoppingList="activeShoppingList" :deleteItem="deleteItem" />
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { computed, ref, onMounted } from "vue";
 import axios from "axios";
 import NewItemForm from '../components/shoppingList/NewItemForm.vue'
 import ShoppingListItems from '../components/shoppingList/ShoppingListItems.vue'
+import UpdateShoppingListNameModal from '../components/shoppingList/UpdateShoppingListNameModal.vue'
 
-const categories = ref<any[]>([]);
+const categories = ref([]);
 const shoppingLists = ref([]);
 
-const activeShoppingList = computed<any>(() => {
+const activeShoppingList = computed(() => {
   return shoppingLists.value[0] || {}
 })
 
@@ -51,7 +52,7 @@ onMounted(() => {
   fetchShoppingLists();
 })
 
-const createItem = (body: any) => {
+const createItem = (body) => {
   axios
     .post('http://localhost:8080/items', body)
     .then((response) => {
@@ -61,8 +62,34 @@ const createItem = (body: any) => {
     });
 }
 
-const updateShoppingLstName = () => {
-  console.log('update shopping list name')
+const deleteItem = (id) => {
+  axios
+    .delete(`http://localhost:8080/items/${id}`)
+    .then((response) => {
+      if (response.status === 200) {
+        fetchShoppingLists();
+      }
+    });
+}
+
+const addCategory = (name) => {
+  axios
+    .post(`http://localhost:8080/categories`, { categoryName: name })
+    .then((response) => {
+      if (response.status === 200) {
+        fetchCategories();
+      }
+    });
+}
+
+const updateShoppingListName = (name) => {
+  axios
+    .put(`http://localhost:8080/shoppingLists/${activeShoppingList.value.idShoppingList}`, { shoppingName: name })
+    .then((response) => {
+      if (response.status === 200) {
+        fetchShoppingLists();
+      }
+    });
 }
 // const getCategoryName = (categoryId) => {
 

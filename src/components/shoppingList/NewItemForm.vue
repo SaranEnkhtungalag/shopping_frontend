@@ -17,21 +17,21 @@
                     {{ category.categoryName }}
                 </option>
             </select>
-            <a class="add-category" href="#" @click="addNewCategory">add category</a>
+            <AddCategoryModal :addCategory="props.addCategory" /> 
         </div>
         <button type="button" class="btn btn-primary mb-4" @click="createItem">Create item</button>
         <div class="background-image"></div>
     </div>
 </template>
 
-<script setup lang="ts">
-import axios from "axios";
+<script setup>
 import { ref } from "vue";
+import AddCategoryModal from './AddCategoryModal.vue'; 
 
-const props = defineProps(['categories', 'createItem'])
+const props = defineProps(['addCategory', 'categories', 'createItem'])
 const newItemName = ref('');
 const newItemQuantity = ref(1);
-const newItemCategory = ref<number | null>(null);
+const newItemCategory = ref(null);
     
 const createItem = () => {
     const body = {

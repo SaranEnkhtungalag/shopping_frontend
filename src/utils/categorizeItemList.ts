@@ -22,7 +22,6 @@ export function categorizeItemList(items: Item[]) {
 
         const { categoryID, categoryName } = item.categoryID
 
-        // console.log(keys, `${categoryID}`, keys.includes(`${categoryID}`))
         if (keys.includes(categoryID)) {
             const categoryItemIndex = categorizedList.findIndex((categoryItem) => categoryItem.categoryID === categoryID)
             categorizedList[categoryItemIndex].items.push(item)
@@ -33,8 +32,6 @@ export function categorizeItemList(items: Item[]) {
 
         return categorizedList
     }, [])
-
-    console.log(list)
 
     return list || []
 }
