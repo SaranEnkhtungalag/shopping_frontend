@@ -1,43 +1,22 @@
 <template>
     <button type="button" class="btn btn-link" @click="open = true">add category</button>
-<!-- 
+
     <div v-if="open" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add Category</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="category-mame" class="form-label">Category name</label>
-                            <input type="number" class="form-control" id="category-mame" v-model="categoryName">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="open = false">Close</button>
-                        <button type="button" class="btn btn-primary" @click="addCategory">Save</button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="category-mame" class="form-label">Category name</label>
+                        <input type="text" class="form-control" id="category-mame" v-model="categoryName">
                     </div>
                 </div>
-            </div>
-        </div> -->
-    <Teleport to="body">
-        <div v-if="open" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="category-mame" class="form-label">Category name</label>
-                            <input type="text" class="form-control" id="category-mame" v-model="categoryName">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="open = false">Close</button>
-                        <button type="button" class="btn btn-primary" @click="addCategory">Save</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @click="open = false">Close</button>
+                    <button type="button" class="btn btn-primary" @click="addCategory">Save</button>
                 </div>
             </div>
         </div>
-    </Teleport>
+    </div>
 </template>
 
 <script setup>
