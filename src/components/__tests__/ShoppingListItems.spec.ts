@@ -11,7 +11,7 @@ const shoppingList = {
       "quantity": 3,
       "categoryID": {
         "categoryID": 1,
-        "categoryName": "Lebensmittel"
+        "categoryName": "Groceries"
       },
     },
     {
@@ -20,7 +20,7 @@ const shoppingList = {
       "quantity": 5,
       "categoryID": {
         "categoryID": 3,
-        "categoryName": "Kleidung"
+        "categoryName": "Clothes"
       },
     },
   ]
@@ -30,8 +30,8 @@ describe('ShoppingListItems', () => {
   it('renders properly', () => {
     const wrapper = mount(ShoppingListItems, { props: { shoppingList, deleteItem: vi.fn() } })
     const itemsTable = wrapper.find('table')
-    expect(itemsTable.text()).toContain('Lebensmittel')
-    expect(itemsTable.text()).toContain('Kleidung')
+    expect(itemsTable.text()).toContain('Groceries')
+    expect(itemsTable.text()).toContain('Clothes')
     expect(itemsTable.text()).toContain('Milch')
     expect(itemsTable.text()).toContain('T-Shirt')
     expect(itemsTable.find('button').text()).toContain('delete')

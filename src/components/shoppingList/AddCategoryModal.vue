@@ -1,4 +1,4 @@
-<template>
+ <template>
     <button type="button" class="btn btn-link" @click="open = true">add category</button>
 
     <div v-if="open" class="modal" tabindex="-1">

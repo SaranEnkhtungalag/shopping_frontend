@@ -1,6 +1,6 @@
 <template>
     <div class="new-item-form mt-3">
-        <h5>What did you buy?</h5>
+        <h5>What do you want to buy?</h5>
         <div class="mb-3">
             <label for="itemName" class="form-label">Name</label>
             <input type="text" class="form-control" id="itemName" v-model="newItemName">
@@ -17,7 +17,7 @@
                     {{ category.categoryName }}
                 </option>
             </select>
-            <AddCategoryModal :addCategory="props.addCategory" /> 
+            <AddCategoryModal :addCategory="props.addCategory" />
         </div>
         <button type="button" class="btn btn-primary mb-4" @click="createItem">Create item</button>
         <div class="background-image"></div>
@@ -26,13 +26,13 @@
 
 <script setup>
 import { ref } from "vue";
-import AddCategoryModal from './AddCategoryModal.vue'; 
+import AddCategoryModal from './AddCategoryModal.vue';
 
 const props = defineProps(['addCategory', 'categories', 'createItem'])
 const newItemName = ref('');
 const newItemQuantity = ref(1);
 const newItemCategory = ref(null);
-    
+
 const createItem = () => {
     const body = {
         itemName: newItemName.value,
